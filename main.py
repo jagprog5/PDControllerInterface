@@ -5,19 +5,28 @@ import controllerutils
 import tkinter as tk
 from tkinter import messagebox
 
+
 def main():
-    window_id = windowfinder.get_relevant_window_callback_ID()
-    if window_id == None:
+    # obtain pixel dungeon window callback ID
+    window_id = windowfinder.get_relevant_window_callback_id()
+    if window_id is None:  # If window isn't found, show error
         show_critical_error("Couldn't find an active pixel dungeon application!",
                             "Try starting a pixel dungeon application and trying again.")
-    controllerutils.gamepad_input_loop(window_id)
+    # begin input loop based on window ID.
+    controllerutils.game_pad_input_loop(window_id)
+
 
 def show_critical_error(title, text):
+    """
+    Shows an error dialog box, then closes the entire program after the box has been closed by the user.
+    :param title: The title of the error dialog
+    :param text: The text of the dialog.
+    """
     root = tk.Tk()
     root.withdraw()
     messagebox.showerror(title, text)
     sys.exit(1)
 
-if __name__ == "__main__" and os.name == 'nt': #only run if on windows operating system
+# program starts up from here
+if __name__ == "__main__" and os.name == 'nt':  # only run if on windows operating system
     main()
-
