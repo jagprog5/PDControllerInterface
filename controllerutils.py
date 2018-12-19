@@ -2,6 +2,7 @@ from inputs import get_gamepad
 import win32gui
 import robotutils
 import time
+import windowfinder
 import main
 
 analog_xy_max = 32768  # stick bounds (positive AND negative)
@@ -42,6 +43,12 @@ def game_pad_input_loop(window_id):
                 # check for change in window state, only after every 4 seconds
                 # or longer if no controller input is given
                 if win32gui.GetWindowText(window_id) == "":
+                    new_id = windowfinder.get_relevant_window_callback_id()
+                    if new_id is not None:
+                        # if window is lost, check for a new one
+                        # this can occus when switching from full screen
+                        window_id = new_id
+                        continue
                     main.show_critical_error("Controller Interface Error!",
                                              "\"" + init_text + "\" closed unexpectedly.")
                     return
@@ -55,11 +62,15 @@ def game_pad_input_loop(window_id):
                         win32gui.SetForegroundWindow(window_id)
                     except Exception as e:
                         # sometimes breaks when running in IDE
-                        print(e)
+                        pass
 
-        # this is what causes the most CPU usage.
-        events = get_gamepad()
-        for event in events:
+        # CPU usage is a little high
+        # however, I'm following the library exactly as shown:
+        # https://raw.githubusercontent.com/zeth/inputs/master/examples/gamepad_example.py
+
+        # this line uses the most CPU
+        controller_events = get_gamepad()
+        for event in controller_events:
             # for figuring out input codes
             # print(event.ev_type, event.code, event.state)
 
