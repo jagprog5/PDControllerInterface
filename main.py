@@ -11,7 +11,7 @@ def main():
     window_id = windowfinder.get_relevant_window_callback_id()
     if window_id is None:  # If window isn't found, show error
         show_critical_error("Couldn't find an active pixel dungeon application!",
-                            "Try starting a pixel dungeon application and trying again.")
+                            "Open a pixel dungeon application and try again.")
     # begin input loop based on window ID.
     controllerutils.game_pad_input_loop(window_id)
 
@@ -26,6 +26,7 @@ def show_critical_error(title, text):
     root.withdraw()
     messagebox.showerror(title, text)
     sys.exit(1)
+
 
 # program starts up from here
 if __name__ == "__main__" and os.name == 'nt':  # only run if on windows operating system

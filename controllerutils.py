@@ -33,7 +33,7 @@ def game_pad_input_loop(window_id):
     init_text = win32gui.GetWindowText(window_id)  # store window title, so it can be restored when program is closed
     win32gui.SetWindowText(window_id, init_text + ", Controller Interface: Active")
     window_rect = win32gui.GetWindowRect(window_id)  # window rect stores the bounds of the window
-    window_is_full_screen = _is_full_screen(window_rect, window_id)
+    window_is_full_screen = _is_full_screen(window_id)
     robotutils.scale_mouse_in_rect((0, 0), window_rect, 1)  # center mouse in window at beginning
 
     while 1:
@@ -56,13 +56,13 @@ def game_pad_input_loop(window_id):
                 if new_r != window_rect:
                     window_rect = new_r
                     # if rectangle changed, might have full screen state changed
-                    window_is_full_screen = _is_full_screen(window_rect, window_id)
+                    window_is_full_screen = _is_full_screen(window_id)
                 if win32gui.GetForegroundWindow() != window_id:  # keep subject window in front
                     try:
                         win32gui.SetForegroundWindow(window_id)
                     except Exception as e:
                         # sometimes breaks when running in IDE
-                        pass
+                        print(e)
 
         # CPU usage is a little high
         # however, I'm following the library exactly as shown:
@@ -162,7 +162,8 @@ def game_pad_input_loop(window_id):
             # move the mouse based on the last received position of the left stick,
             # the window rectangle bounds, and the scaling
             robotutils.scale_mouse_in_rect((last_x, last_y), window_rect,
-                                           last_z - (robotutils.min_scale_change if z_button_state else 0), window_is_full_screen)
+                                           last_z - (robotutils.min_scale_change if z_button_state else 0),
+                                           window_is_full_screen)
         # adding delay just made the controller laggy, and didn't impact CPU usage
         # sleep(2 / 1000)
 
@@ -171,5 +172,5 @@ def _get_millis():
     return int(round(time.time() * 1000))
 
 
-def _is_full_screen(window_rect, id):
+def _is_full_screen(id):
     return win32gui.GetWindowRect(win32gui.GetDesktopWindow()) == win32gui.GetWindowRect(id)

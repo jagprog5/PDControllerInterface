@@ -2,6 +2,10 @@ import win32api
 import win32con
 import win32gui
 
+# NOTE: win32xxx packages failed to install when using python 3.7.
+# I used 32 bit python 3.6.6
+# Also note: win32api is under module name pywin32
+
 mid_scale = 0.4  # the stick scaling if no modifiers are used
 min_scale_change = 0.5  # minimum scaling if the left bumper is pressed
 max_scale = 1  # maximum scaling, if the left trigger modifier is used
