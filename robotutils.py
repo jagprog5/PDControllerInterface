@@ -7,11 +7,12 @@ min_scale_change = 0.5  # minimum scaling if the left bumper is pressed
 max_scale = 1  # maximum scaling, if the left trigger modifier is used
 
 
-def scale_mouse_in_rect(stick, rect, multiplier=max_scale):
+def scale_mouse_in_rect(stick, rect, multiplier=max_scale, window_is_full_screen=False):
     """
     :param stick: A tuple containing the analog x and y inputs ranging from -1 to 1
     :param rect: The window rectangle
     :param multiplier: The scaling of the stick input.
+    :param window_is_full_screen: If the subject window is maximized and top on the screen.
 
     Note for multiplier: Ranges from 0 to 1, with 1 being unscaled,
     and numbers approaching 0 becoming less and less sensitive to stick input.
@@ -35,7 +36,8 @@ def scale_mouse_in_rect(stick, rect, multiplier=max_scale):
     elif y > rect[3] - 20:
         y = rect[3] - 20
     try:
-        win32api.SetCursorPos((x, y + 10))
+        # offset down 10 pixels if windowed, 5 if full screen
+        win32api.SetCursorPos((x, y + (0 if window_is_full_screen else 10)))
     except Exception as e:
         # pywintypes.error
         # general thrown due to security.
