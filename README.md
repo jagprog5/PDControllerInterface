@@ -32,7 +32,7 @@ Controllers are currently hard-coded to the default key bindings:
 - Right trigger is back / exit current menu
 - Left stick button is zoom in
 - Right stick button is zoom out
-- As of the moment, the left stick button and entire right stick is not used
+- As of the moment, the right stick is not used
 
 Please note that there is an [issue](https://github.com/zeth/inputs/issues/65) with this program. The controller input
 library being uses (see above) consumes reasonably high cpu. Under conventional circumstances, a library such as pyglet
