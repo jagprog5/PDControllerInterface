@@ -1,4 +1,5 @@
 import win32gui
+import win32com.client
 
 
 def get_relevant_window_callback_id():
@@ -45,4 +46,7 @@ def _enum_handle(hwnd, top_windows):
 
 def _prompt_enum_handle(hwnd, title):
     if win32gui.GetWindowText(hwnd) == title and win32gui.GetClassName(hwnd) == "#32770":
+        # https://stackoverflow.com/a/30314197/5458478
+        # ¯\_(ツ)_/¯
+        win32com.client.Dispatch("WScript.Shell").SendKeys('%')
         win32gui.SetForegroundWindow(hwnd)
