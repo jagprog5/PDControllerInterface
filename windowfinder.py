@@ -34,6 +34,15 @@ def get_relevant_window_callback_id():
         return relevant_windows[0][0]
 
 
+def bring_prompt_to_top(window_title):
+    win32gui.EnumWindows(_prompt_enum_handle, window_title)
+
+
 def _enum_handle(hwnd, top_windows):
     # stores callback ID and window name as tuple
     top_windows.append((hwnd, win32gui.GetWindowText(hwnd)))
+
+
+def _prompt_enum_handle(hwnd, title):
+    if win32gui.GetWindowText(hwnd) == title and win32gui.GetClassName(hwnd) == "#32770":
+        win32gui.SetForegroundWindow(hwnd)

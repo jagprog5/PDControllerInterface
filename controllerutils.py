@@ -46,9 +46,13 @@ def game_pad_input_loop(window_id):
                     new_id = windowfinder.get_relevant_window_callback_id()
                     if new_id is not None:
                         # if window is lost, check for a new one
-                        # this can occus when switching from full screen
+                        # this can occur when switching from full screen
                         window_id = new_id
+                        # reset window title
+                        win32gui.SetWindowText(window_id, init_text + ", Controller Interface: "
+                                               + ("A" if is_active else "Ina") + "ctive")
                         continue
+                    # can't pass title and window id because window no longer exists
                     main.show_critical_error("Controller Interface Error!",
                                              "\"" + init_text + "\" closed unexpectedly.")
                     return
@@ -68,8 +72,18 @@ def game_pad_input_loop(window_id):
         # however, I'm following the library exactly as shown:
         # https://raw.githubusercontent.com/zeth/inputs/master/examples/gamepad_example.py
 
-        # this line uses the most CPU
-        controller_events = get_gamepad()
+        # trying to find a different input library
+        # unfortunately, pygame, pyglet, and other standard libraries requires a foreground window
+
+        try:
+            controller_events = get_gamepad()
+        except Exception as e:
+            if str(e).endswith("is not connected"):
+                main.show_critical_error("Game-pad disconnected!",
+                                         "Reconnect your game-pad and restart the application.", init_text, window_id)
+            else:
+                main.show_critical_error("Error!", str(e), init_text, window_id)
+
         for event in controller_events:
             # for figuring out input codes
             # print(event.ev_type, event.code, event.state)
@@ -172,5 +186,5 @@ def _get_millis():
     return int(round(time.time() * 1000))
 
 
-def _is_full_screen(id):
-    return win32gui.GetWindowRect(win32gui.GetDesktopWindow()) == win32gui.GetWindowRect(id)
+def _is_full_screen(window_id):
+    return win32gui.GetWindowRect(win32gui.GetDesktopWindow()) == win32gui.GetWindowRect(window_id)
