@@ -4,6 +4,7 @@ import robotutils
 import time
 import windowfinder
 import main
+import sys
 
 analog_xy_max = 32768  # stick bounds (positive AND negative)
 analog_z_max = 255  # trigger bound (only positive)
@@ -83,6 +84,7 @@ def game_pad_input_loop(window_id):
                                          "Reconnect your game-pad and restart the application.", init_text, window_id)
             else:
                 main.show_critical_error("Error!", str(e), init_text, window_id)
+            return  # technically not needed, but emphasizes that the code does not continue if an error is thrown
 
         for event in controller_events:
             # for figuring out input codes
@@ -106,7 +108,8 @@ def game_pad_input_loop(window_id):
                         time.sleep(0.1)
                         if event.state == 0:  # don't give error if closed from controller
                             if win32gui.GetWindowText(window_id) == "":
-                                return
+                                #closed from fressing button in game
+                                sys.exit(0)
                     elif event.code == "BTN_TL":
                         # movement mode from left bumper
                         z_button_state = event.state
@@ -122,6 +125,12 @@ def game_pad_input_loop(window_id):
                     elif event.code == "BTN_TR":
                         # i, or inventory, from right bumper
                         robotutils.key_state(event.state, 0x49)
+                    elif event.code == "BTN_THUMBL":
+                        # -, or zoom out, from left thumb button
+                        robotutils.key_state(event.state, 0xBD)
+                    elif event.code == "BTN_THUMBR":
+                        # +, or zoom in, from right thumb button
+                        robotutils.key_state(event.state, 0xBB)
 
             if event.code.startswith("ABS_"):
                 # x, y, and z, aka
