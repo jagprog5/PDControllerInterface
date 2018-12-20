@@ -1,4 +1,4 @@
-[![Demo Video](https://github.com/olta8/PDControllerInterface/blob/master/Thumbnail.png)](http://www.youtube.com/watch?v=X63V_5YDLC0 "Click to watch the demo")
+[![Demo Video](https://github.com/olta8/PDControllerInterface/blob/master/Thumbnail.png)](https://youtu.be/UYb0bewIX2k "Click to watch the demo")
 
 <!--- Above file links to demo video. Displayed image is contained within the project itself. --->
 <!--- Note that Thumbnail.png serves no other purpose in this project, and can be removed. --->
