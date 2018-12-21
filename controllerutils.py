@@ -4,7 +4,6 @@ import robotutils
 import time
 import windowfinder
 import main
-import sys
 
 analog_xy_max = 32768  # stick bounds (positive AND negative)
 analog_z_max = 255  # trigger bound (only positive)

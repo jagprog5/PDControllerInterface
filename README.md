@@ -1,7 +1,4 @@
-[![Demo Video](https://github.com/olta8/PDControllerInterface/blob/master/Thumbnail.png)](https://youtu.be/wS2o8JwoxLA "Click to watch the demo")
-
-<!--- Above file links to demo video. Displayed image is contained within the project itself. --->
-<!--- Note that Thumbnail.png serves no other purpose in this project, and can be removed. --->
+[![Demo Video](https://i.imgur.com/V9yxmHo.png)](https://youtu.be/wS2o8JwoxLA "Click to watch the video")
 
 # Pixel Dungeon Controller Interface
 
@@ -9,21 +6,46 @@ This project was built in the PyCharm IDE, using python 3.6.6. It uses:
 - [inputs](https://pypi.org/project/inputs/) for getting controller input
 - pywin32, win32con, and win32gui for cursor movement, dialog boxes, and window detection.
 
-The purpose of this project was to give game-pad control to the open-source game 
+This project allows for game-pad control in the open-source game 
 [pixel dungeon](https://github.com/watabou/pixel-dungeon) and its [mods](https://github.com/00-Evan/shattered-pixel-dungeon).
 This was done in a non-invasive way. The game itself is not modified. Instead, the program will detect a running pixel
 dungeon application. It then simulates corresponding mouse and keyboard input based on the controller input and window position.
 
-The application can be paused\resumed at any time with the start button. It can also be stopped with the menu button
-or by unplugging the game-pad. The program status will be shown in the game's title bar (e.g. Pixel Dungeon, Controller Interface: Inactive).
+## How to use
 
-Controllers are currently hard-coded to the default key bindings:
-- Left stick to move mouse
-- Left bumper for fine mouse movement
-- Left trigger for coarse mouse movement
+Check the releases tab of this repo for the files. When running the application, make sure a pixel dungeon window is open,
+and that a game-pad / controller is plugged in. So far, it has been tested with these controllers:
+- xbox one controller
+- PS4 controller via DS4Windows
+
+And the desktop versions of:
+- Shattered Pixel Dungeon
+- (Vanilla) Pixel Dungeon
+
+The application will detect the game window, bring it to the foreground, and start sending mouse / keyboard inputs to it.
+If anything goes wrong, an error prompt will appear (e.g. "Error, no gamepad detected").
+
+Note that this application is for windows operating systems.
+
+
+## Moving the Mouse
+
+![zones image](https://i.imgur.com/yE5BN8Y.png)
+
+Use the left stick to move the mouse. If the left bumper is pressed down, it uses the fine movement mode. This mode is good for 
+selecting adjacent tiles. If the left trigger is pressed down, then the entire window can be used, even the corners.
+Note that this scales with window size, not in-game zoom size.
+
+## Closing / Pausing the Application
+
+The application can be paused / resumed at any time with the start button. It can also be stopped with the menu button,
+by unplugging the game-pad, or by closing the game window. The program status will be shown in the game's title bar
+(e.g. Pixel Dungeon, Controller Interface: Inactive).
+
+## Other Key Bindings (based on default game bindings)
 - D-pad up, right, down, and left are quick slots 1-4, respectively
 - Start button toggles controller input. This locks/unlocks the mouse and disables/enables controller input
-- Menu button fully stops the program
+- Menu button fully stops the program.
 - A is left click
 - B is attack
 - Y is search
@@ -32,9 +54,11 @@ Controllers are currently hard-coded to the default key bindings:
 - Right trigger is back / exit current menu
 - Left stick button is zoom in
 - Right stick button is zoom out
-- As of the moment, the right stick is not used
+- The right stick x or y is not used
+
+## An issue
 
 Please note that there is an [issue](https://github.com/zeth/inputs/issues/65) with this program. The controller input
-library being uses (see above) consumes reasonably high cpu. Under conventional circumstances, a library such as pyglet
-or pygame's joystick module would be used. However, these require an active foreground window in focus, which
-this application can not have.
+library being uses (see above) consumes reasonably high cpu *on some devices*. Under conventional circumstances,
+a library such as pyglet or pygame's joystick module would be used. However, these require an active foreground window
+in focus, which this application can not have (since the game window must be in focus instead).
