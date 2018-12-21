@@ -25,7 +25,7 @@ And the desktop versions of:
 The application will detect the game window, bring it to the foreground, and start sending mouse / keyboard inputs to it.
 If anything goes wrong, an error prompt will appear (e.g. "Error, no gamepad detected").
 
-Note that this application is for windows operating systems.
+This application is for windows operating systems.
 
 
 ## Moving the Mouse
@@ -34,7 +34,7 @@ Note that this application is for windows operating systems.
 
 Use the left stick to move the mouse. If the left bumper is pressed down, it uses the fine movement mode. This mode is good for 
 selecting adjacent tiles. If the left trigger is pressed down, then the entire window can be used, even the corners.
-Note that this scales with window size, not in-game zoom size.
+The mouse movement areas scale with window size, not in-game zoom size.
 
 ## Closing / Pausing the Application
 
@@ -54,7 +54,7 @@ by unplugging the game-pad, or by closing the game window. The program status wi
 - Right trigger is back / exit current menu
 - Left stick button is zoom in
 - Right stick button is zoom out
-- The right stick x or y is not used
+- The right stick x and y is not used
 
 ## An issue
 
