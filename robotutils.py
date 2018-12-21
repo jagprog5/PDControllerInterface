@@ -35,8 +35,8 @@ def scale_mouse_in_rect(stick, rect, multiplier=max_scale, window_is_full_screen
     elif x > rect[2] - 10:
         x = rect[2] - 10
     y = _scale(-stick[1] * m, rect[1], rect[3] - rect[1])
-    if y < rect[1] + 20:
-        y = rect[1] + 20
+    if y < rect[1] + 30:
+        y = rect[1] + 30
     elif y > rect[3] - 20:
         y = rect[3] - 20
     try:
