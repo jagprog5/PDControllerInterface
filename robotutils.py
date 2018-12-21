@@ -95,8 +95,9 @@ def scale_mouse_in_rect(stick, rect, multiplier=max_scale, window_is_full_screen
         x = rect[0] + 10
     elif x > rect[2] - 10:
         x = rect[2] - 10
-    if y < rect[1] - win_offset + 40:
-        y = rect[1] - win_offset + 40
+    win_top_bound = 5 if window_is_full_screen else 40
+    if y < rect[1] - win_offset + win_top_bound:
+        y = rect[1] - win_offset + win_top_bound
     elif y > rect[3] - win_offset - 10:
         y = rect[3] - win_offset - 10
     try:
