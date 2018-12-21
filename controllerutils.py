@@ -19,7 +19,7 @@ def game_pad_input_loop(window_id):
     last_y = 0
     last_hat_x = 0  # Previous D-Pad states
     last_hat_y = 0
-    last_r_trigger_state = 0  # right trigger is being used as a button. Previous state is needed.
+    last_r_trigger_state = 0  # right trigger is continuous, but being used as a button
 
     """scaling explanation
     if nothing is pressed, the scaling is medium. This is enough to hit most buttons, but not the outer ones
@@ -101,8 +101,8 @@ def game_pad_input_loop(window_id):
                         except Exception as e:
                             # this will be thrown if the program was inactive and the full-screen state was
                             # changed normally (without the controller), followed by the program being reactivated again
-                            # the window_id will be changed, and the window title change will fail
-                            # instead, the title change will occur when the new window id is found
+                            # the window_id will no longer be relevant, and the window title change will fail
+                            # instead, the title change will occur after the new window id is found
                             print(e)
                 elif event.code == "BTN_SELECT":
                     # stop application
@@ -189,11 +189,14 @@ def game_pad_input_loop(window_id):
                             robotutils.key_state(0, 0x52)
                         last_hat_y = event.state
         if is_active:
+            if z_button_state:
+                scale = robotutils.min_scale
+            else:
+                scale = last_z
             # move the mouse based on the last received position of the left stick,
             # the window rectangle bounds, and the scaling
-            robotutils.scale_mouse_in_rect((last_x, last_y), window_rect,
-                                           last_z - (robotutils.min_scale_change if z_button_state else 0),
-                                           window_is_full_screen)
+            robotutils.scale_mouse_in_rect((last_x, last_y), window_rect, scale, window_is_full_screen,
+                                           fine_mode=z_button_state)
         # adding delay just made the controller laggy, and didn't impact CPU usage
         # sleep(2 / 1000)
 

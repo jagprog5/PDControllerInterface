@@ -16,20 +16,19 @@ def main():
     window_id = windowfinder.get_relevant_window_callback_id()
     if window_id is None:  # If window isn't found, show error
         show_critical_error("Couldn't find an active pixel dungeon application!",
-                            "Open a pixel dungeon application and try again.")
+                            "Open a pixel dungeon application and try again.", top=False)
     # begin input loop based on window ID.
     controllerutils.game_pad_input_loop(window_id)
 
 
-def show_critical_error(title, text, window_init_title=None, window_id=None):
+def show_critical_error(title, text, window_init_title=None, window_id=None, top=True):
     """
     Shows an error dialog box, then closes the entire program after the box has been closed by the user.
     :param title: The title of the error dialog
     :param text: The text of the dialog.
     :param window_init_title: The initial title of the subject window
     :param window_id: The ID of the subject window.
-
-    The last two optional parameters are used to reset the subject window title on close.
+    :param top: If the prompt should be forced to the foreground.
     """
 
     # message box locks thread until it is closed
@@ -37,8 +36,9 @@ def show_critical_error(title, text, window_init_title=None, window_id=None):
     t.start()
 
     # just after box is opened, move it to the foreground
-    time.sleep(0.1)
-    windowfinder.bring_prompt_to_top(title)
+    if top:
+        time.sleep(0.1)
+        windowfinder.bring_prompt_to_top(title)
 
     # wait until message box is closed.
     t.join()
