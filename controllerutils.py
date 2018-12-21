@@ -95,8 +95,15 @@ def game_pad_input_loop(window_id):
                     if event.state == 1:
                         # toggle activity state if start button is pressed
                         is_active = not is_active
-                        win32gui.SetWindowText(window_id, init_text + ", Controller Interface: "
-                                               + ("A" if is_active else "Ina") + "ctive")
+                        try:
+                            win32gui.SetWindowText(window_id, init_text + ", Controller Interface: "
+                                                   + ("A" if is_active else "Ina") + "ctive")
+                        except Exception as e:
+                            # this will be thrown if the program was inactive and the full-screen state was
+                            # changed normally (without the controller), followed by the program being reactivated again
+                            # the window_id will be changed, and the window title change will fail
+                            # instead, the title change will occur when the new window id is found
+                            print(e)
                 elif event.code == "BTN_SELECT":
                     # stop application
                     win32gui.SetWindowText(window_id, init_text)
