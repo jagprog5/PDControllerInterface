@@ -52,10 +52,10 @@ def game_pad_input_loop(window_id):
                         # reset window title
                         win32gui.SetWindowText(window_id, init_text + ", Controller Interface: "
                                                + ("A" if is_active else "Ina") + "ctive")
+                        # if window is found again, continue loop
                         continue
-                    # can't pass title and window id because window no longer exists
-                    main.show_critical_error("Controller Interface Error!",
-                                             "\"" + init_text + "\" closed unexpectedly.")
+
+                    # exit loop if window was closed
                     return
                 new_r = win32gui.GetWindowRect(window_id)  # update rectangle bounds if needed
                 if new_r != window_rect:
@@ -113,10 +113,10 @@ def game_pad_input_loop(window_id):
                         # left mouse clicking from 'A' button
                         robotutils.l_mouse_state(event.state)
                         time.sleep(0.1)
-                        if event.state == 0:  # don't give error if closed from controller
+                        if event.state == 1:
                             if win32gui.GetWindowText(window_id) == "":
-                                #closed from fressing button in game
-                                sys.exit(0)
+                                # immediately release mouse if closed
+                                return
                     elif event.code == "BTN_TL":
                         # movement mode from left bumper
                         z_button_state = event.state
@@ -156,8 +156,9 @@ def game_pad_input_loop(window_id):
                             if new_state != last_r_trigger_state:
                                 robotutils.key_state(new_state, 0x1B)
                                 time.sleep(0.1)
-                                if new_state == 1:  # don't give error if closed from controller
+                                if new_state == 1:
                                     if win32gui.GetWindowText(window_id) == "":
+                                        # immediately release mouse if closed
                                         return
                             last_r_trigger_state = new_state
                     if event.code.endswith("HAT0Y"):
