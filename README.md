@@ -1,4 +1,4 @@
-[![Demo Video](https://i.imgur.com/V9yxmHo.png)](https://youtu.be/wS2o8JwoxLA "Click to watch the video")
+[![Demo Video](https://i.imgur.com/V9yxmHo.png)](https://youtu.be/3VyiEB4iVtU "Click to watch the video")
 
 # Pixel Dungeon Controller Interface
 
