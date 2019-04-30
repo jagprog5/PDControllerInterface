@@ -8,8 +8,14 @@ import time
 import threading
 import winsound
 
-# package free command
-# cmd pyinstaller -w -F -i "icon.ico path" main.py
+"""
+A slight modification must be made to the inputs library to prevent CPU hogging.
+Follow this:
+https://github.com/zeth/inputs/issues/65#issuecomment-486036591
+Summary:
+Add "time.sleep(0.001) to _do_iter() before line 2497 (just before the Return None)" in inputs.py
+inputs.py should be located in python's lib site-packages folder after it's pip installed.
+"""
 
 def main():
     # obtain pixel dungeon window callback ID

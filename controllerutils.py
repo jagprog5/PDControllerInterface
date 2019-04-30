@@ -13,7 +13,7 @@ def game_pad_input_loop(window_id):
     # every few seconds, the window bounds and state is checked.
     # this variable stores the millis of the last check
     last_window_check = _get_millis()
-    is_active = True  # pause state. Controller should be able to do nothing except
+    is_active = True  # pause state. Controller should be able to do nothing except un-pause or stop the program.
     last_x = 0  # left stick x and y
     last_y = 0
     last_hat_x = 0  # Previous D-Pad states

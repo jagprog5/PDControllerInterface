@@ -13,9 +13,9 @@ dungeon application. It then simulates corresponding mouse and keyboard input ba
 
 ## How to use
 
-Check the releases tab of this repo for the files. When running the application, make sure a pixel dungeon window is open,
+Check the releases tab of this repo for the executable or source code. When running the application, make sure a pixel dungeon window is open,
 and that a game-pad / controller is plugged in. So far, it has been tested with these controllers:
-- xbox one controller
+- Xbox one controller
 - PS4 controller via DS4Windows
 
 And the desktop versions of:
@@ -42,7 +42,7 @@ The application can be paused / resumed at any time with the start button. It ca
 by unplugging the game-pad, or by closing the game window. The program status will be shown in the game's title bar
 (e.g. Pixel Dungeon, Controller Interface: Inactive).
 
-## Other Key Bindings (based on default game bindings)
+## Key Bindings (based on default game bindings)
 - D-pad up, right, down, and left are quick slots 1-4, respectively
 - Start button toggles controller input. This locks/unlocks the mouse and disables/enables controller input
 - Menu button fully stops the program.
@@ -55,10 +55,3 @@ by unplugging the game-pad, or by closing the game window. The program status wi
 - Left stick button is zoom in
 - Right stick button is zoom out
 - The right stick x and y is not used
-
-## An issue
-
-Please note that there is an [issue](https://github.com/zeth/inputs/issues/65) with this program. The controller input
-library being uses (see above) consumes reasonably high cpu *on some devices*. Under conventional circumstances,
-a library such as pyglet or pygame's joystick module would be used. However, these require an active foreground window
-in focus, which this application can not have (since the game window must be in focus instead).

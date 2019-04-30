@@ -43,7 +43,6 @@ def _enum_handle(hwnd, top_windows):
     # stores callback ID and window name as tuple
     top_windows.append((hwnd, win32gui.GetWindowText(hwnd)))
 
-
 def _prompt_enum_handle(hwnd, title):
     if win32gui.GetWindowText(hwnd) == title and win32gui.GetClassName(hwnd) == "#32770":
         # https://stackoverflow.com/a/30314197/5458478
