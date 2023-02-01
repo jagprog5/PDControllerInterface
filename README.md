@@ -1,5 +1,7 @@
 [![Demo Video](https://i.imgur.com/V9yxmHo.png)](https://youtu.be/3VyiEB4iVtU "Click to watch the video")
 
+☝️ click the image to watch the demo
+
 # Pixel Dungeon Controller Interface
 
 This project was built in the PyCharm IDE, using python 3.6.6. It uses:
